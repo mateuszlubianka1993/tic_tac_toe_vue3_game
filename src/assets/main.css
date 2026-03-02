@@ -1,35 +1,16 @@
-@import './base.css';
+@import "./base.css";
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-}
+@theme {
+  --color-brand-dark: #1a1a2e;
+  --color-brand-surface: #16213e;
+  --color-brand-panel: #0f3460;
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
+  --color-player-x: #e94560;
+  --color-player-o: #4db8ff;
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
+  --color-accent-silver: #95a5a6;
+  --color-accent-gold: #f1c40f;
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+  --shadow-glow-x: 0 0 20px rgba(233, 69, 96, 0.4);
+  --shadow-glow-o: 0 0 20px rgba(77, 184, 255, 0.4);
 }
