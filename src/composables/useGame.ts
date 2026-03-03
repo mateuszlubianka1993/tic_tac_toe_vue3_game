@@ -9,6 +9,7 @@ export function useGame() {
   const board = ref<CellValue[]>(Array(9).fill(null));
   const currentPlayer = ref<Player>(X_PLAYER);
   const winner = ref<CellValue>(null);
+  const winningLine = ref<number[] | null>(null);
 
   const isDraw = computed(() => {
     return !winner.value && board.value.every((cell) => cell !== null);
@@ -23,6 +24,7 @@ export function useGame() {
 
       if (cellA && cellA === cellB && cellA === cellC) {
         winner.value = cellA;
+        winningLine.value = [a, b, c];
         return;
       }
     }
@@ -44,12 +46,14 @@ export function useGame() {
     board.value = Array(9).fill(null);
     currentPlayer.value = X_PLAYER;
     winner.value = null;
+    winningLine.value = null;
   };
 
   return {
     board,
     currentPlayer,
     winner,
+    winningLine,
     isDraw,
     makeMove,
     resetGame,

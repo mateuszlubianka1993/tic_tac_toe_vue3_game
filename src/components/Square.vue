@@ -5,6 +5,7 @@ import { PLAYERS } from "../config";
 interface Props {
   value: CellValue;
   disabled?: boolean;
+  isWinningSquare?: boolean;
 }
 
 defineProps<Props>();
@@ -24,6 +25,8 @@ const emit = defineEmits<{
         : 'cursor-default',
       value === PLAYERS.X_PLAYER ? 'text-player-x shadow-glow-x border-player-x/30' : '',
       value === PLAYERS.O_PLAYER ? 'text-player-o shadow-glow-o border-player-o/30' : '',
+      isWinningSquare && value === PLAYERS.X_PLAYER ? 'bg-player-x text-white scale-105 z-10' : '',
+      isWinningSquare && value === PLAYERS.O_PLAYER ? 'bg-player-o text-white scale-105 z-10' : '',
     ]"
   >
     <div
