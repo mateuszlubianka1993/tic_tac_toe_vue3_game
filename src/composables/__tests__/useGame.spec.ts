@@ -68,4 +68,27 @@ describe("useGame Composable", () => {
     expect(game.winner.value).toBeNull();
     expect(game.currentPlayer.value).toBe(PLAYERS.X_PLAYER);
   });
+
+  it("should return the correct winning line indices after a win", () => {
+    game.makeMove(0);
+    game.makeMove(3);
+    game.makeMove(1);
+    game.makeMove(4);
+    game.makeMove(2);
+
+    expect(game.winner.value).toBe(PLAYERS.X_PLAYER);
+    expect(game.winningLine.value).toEqual([0, 1, 2]);
+  });
+
+  it("should reset the winning line when the game is reset", () => {
+    game.makeMove(0);
+    game.makeMove(3);
+    game.makeMove(1);
+    game.makeMove(4);
+    game.makeMove(2);
+
+    game.resetGame();
+
+    expect(game.winningLine.value).toBeNull();
+  });
 });
