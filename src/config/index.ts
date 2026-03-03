@@ -13,3 +13,14 @@ export const PLAYERS = {
   X_PLAYER: "X",
   O_PLAYER: "O",
 } as const;
+
+export const ROUTES = {
+  HOME_PAGE: {
+    path: "/",
+    name: "home",
+  },
+  GAME_PAGE: {
+    path: "/game",
+    name: "game",
+  },
+} as const;

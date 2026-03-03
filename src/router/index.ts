@@ -1,18 +1,19 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import { ROUTES } from "../config";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "home",
+      path: ROUTES.HOME_PAGE.path,
+      name: ROUTES.HOME_PAGE.name,
       component: HomeView,
     },
     {
-      path: "/about",
-      name: "about",
-      component: () => import("../views/AboutView.vue"),
+      path: ROUTES.GAME_PAGE.path,
+      name: ROUTES.GAME_PAGE.name,
+      component: () => import("../views/GameView.vue"),
     },
   ],
 });
