@@ -4,13 +4,12 @@ import { WINNING_CONDITIONS } from "../config";
 import { PLAYERS } from "../config";
 
 const { X_PLAYER, O_PLAYER } = PLAYERS;
+const board = ref<CellValue[]>(Array(9).fill(null));
+const currentPlayer = ref<Player>(X_PLAYER);
+const winner = ref<CellValue>(null);
+const winningLine = ref<number[] | null>(null);
 
 export function useGame() {
-  const board = ref<CellValue[]>(Array(9).fill(null));
-  const currentPlayer = ref<Player>(X_PLAYER);
-  const winner = ref<CellValue>(null);
-  const winningLine = ref<number[] | null>(null);
-
   const isDraw = computed(() => {
     return !winner.value && board.value.every((cell) => cell !== null);
   });
