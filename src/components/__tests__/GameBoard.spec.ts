@@ -1,10 +1,18 @@
 import { mount } from "@vue/test-utils";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import GameBoard from "../GameBoard.vue";
 import Square from "../Square.vue";
+import { useGame } from "@/composables/useGame";
 import { PLAYERS } from "../../config";
 
 describe("GameBoard.vue Integration", () => {
+  let game: ReturnType<typeof useGame>;
+
+  beforeEach(() => {
+    game = useGame();
+    game.resetGame();
+  });
+
   it("renders all 9 squares", () => {
     const wrapper = mount(GameBoard);
     const squares = wrapper.findAllComponents(Square);

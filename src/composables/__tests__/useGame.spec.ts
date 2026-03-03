@@ -7,6 +7,7 @@ describe("useGame Composable", () => {
 
   beforeEach(() => {
     game = useGame();
+    game.resetGame();
   });
 
   it("should initialize with an empty board and X as the current player", () => {
