@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { useGame } from "../composables/useGame";
+const { scores } = useGame();
+</script>
+
 <template>
   <div class="flex flex-col items-center gap-16 text-center">
     <header>
@@ -8,6 +13,25 @@
         Vue 3 & Tailwind v4
       </p>
     </header>
+
+    <div class="flex flex-col items-center gap-12 text-center">
+      <div
+        class="grid grid-cols-3 gap-8 p-6 bg-brand-panel/20 rounded-3xl border border-brand-panel/30 backdrop-blur-sm"
+      >
+        <div>
+          <p class="text-player-x font-black text-2xl">{{ scores.X }}</p>
+          <p class="text-accent-silver text-[10px] uppercase tracking-tighter">X Wins</p>
+        </div>
+        <div class="border-x border-brand-panel/50 px-8">
+          <p class="text-white font-black text-2xl">{{ scores.draws }}</p>
+          <p class="text-accent-silver text-[10px] uppercase tracking-tighter">Draws</p>
+        </div>
+        <div>
+          <p class="text-player-o font-black text-2xl">{{ scores.O }}</p>
+          <p class="text-accent-silver text-[10px] uppercase tracking-tighter">O Wins</p>
+        </div>
+      </div>
+    </div>
 
     <nav class="flex flex-col w-full max-w-64 gap-6">
       <RouterLink

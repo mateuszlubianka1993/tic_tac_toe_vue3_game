@@ -1,9 +1,12 @@
 import { ref, computed } from "vue";
-import type { CellValue, Player } from "../types";
-import { WINNING_CONDITIONS } from "../config";
-import { PLAYERS } from "../config";
+import type { CellValue, Player, GameScores } from "../types";
+import { WINNING_CONDITIONS, PLAYERS, STORAGE_KEY } from "../config";
+
+const savedScores = localStorage.getItem(STORAGE_KEY);
+const initialScores: GameScores = savedScores ? JSON.parse(savedScores) : { X: 0, O: 0, draws: 0 };
 
 const { X_PLAYER, O_PLAYER } = PLAYERS;
+const scores = ref<GameScores>(initialScores);
 const board = ref<CellValue[]>(Array(9).fill(null));
 const currentPlayer = ref<Player>(X_PLAYER);
 const winner = ref<CellValue>(null);
@@ -24,8 +27,19 @@ export function useGame() {
       if (cellA && cellA === cellB && cellA === cellC) {
         winner.value = cellA;
         winningLine.value = [a, b, c];
+
+        if (cellA === PLAYERS.X_PLAYER) {
+          scores.value.X++;
+        } else {
+          scores.value.O++;
+        }
+
         return;
       }
+    }
+
+    if (!winner.value && board.value.every((cell) => cell !== null)) {
+      scores.value.draws++;
     }
   };
 
@@ -48,6 +62,10 @@ export function useGame() {
     winningLine.value = null;
   };
 
+  const resetScores = () => {
+    scores.value = { X: 0, O: 0, draws: 0 };
+  };
+
   return {
     board,
     currentPlayer,
@@ -56,5 +74,7 @@ export function useGame() {
     isDraw,
     makeMove,
     resetGame,
+    scores,
+    resetScores,
   };
 }
