@@ -24,3 +24,5 @@ export const ROUTES = {
     name: "game",
   },
 } as const;
+
+export const STORAGE_KEY = "tictactoe-scores" as const;

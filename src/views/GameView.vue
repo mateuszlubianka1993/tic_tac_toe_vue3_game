@@ -1,8 +1,15 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import GameBoard from "../components/GameBoard.vue";
 import { useGame } from "../composables/useGame";
 
-const { resetGame } = useGame();
+const { resetGame, winner, isDraw } = useGame();
+
+onMounted(() => {
+  if (winner.value || isDraw.value) {
+    resetGame();
+  }
+});
 </script>
 
 <template>
