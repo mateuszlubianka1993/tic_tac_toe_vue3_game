@@ -1,21 +1,51 @@
-import { ref, computed } from "vue";
-import type { CellValue, Player, GameScores } from "../types";
-import { WINNING_CONDITIONS, PLAYERS, STORAGE_KEY } from "../config";
+import { ref, computed, watch } from "vue";
+import type { CellValue, Player, MatchEntry, Result } from "../types";
+import { WINNING_CONDITIONS, PLAYERS, STORAGE_KEY, RESULTS } from "../config";
 
-const savedScores = localStorage.getItem(STORAGE_KEY);
-const initialScores: GameScores = savedScores ? JSON.parse(savedScores) : { X: 0, O: 0, draws: 0 };
+const savedHistory = localStorage.getItem(STORAGE_KEY);
+const history = ref<MatchEntry[]>(savedHistory ? JSON.parse(savedHistory) : []);
 
 const { X_PLAYER, O_PLAYER } = PLAYERS;
-const scores = ref<GameScores>(initialScores);
+const { DRAW } = RESULTS;
 const board = ref<CellValue[]>(Array(9).fill(null));
 const currentPlayer = ref<Player>(X_PLAYER);
 const winner = ref<CellValue>(null);
 const winningLine = ref<number[] | null>(null);
 
+watch(
+  history,
+  (newHistory) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newHistory));
+  },
+  { deep: true },
+);
+
 export function useGame() {
+  const scores = computed(() => ({
+    X: history.value.filter((m) => m.winner === X_PLAYER).length,
+    O: history.value.filter((m) => m.winner === O_PLAYER).length,
+    draws: history.value.filter((m) => m.winner === DRAW).length,
+    total: history.value.length,
+  }));
+
   const isDraw = computed(() => {
     return !winner.value && board.value.every((cell) => cell !== null);
   });
+
+  const saveMatchToHistory = (result: Result) => {
+    const newMatch: MatchEntry = {
+      id: crypto.randomUUID(),
+      winner: result,
+      date: new Date().toLocaleString("pl-PL", {
+        day: "2-digit",
+        month: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      movesCount: board.value.filter((cell) => cell !== null).length,
+    };
+    history.value = [newMatch, ...history.value].slice(0, 50); // Trzymamy 50 ostatnich
+  };
 
   const checkWinner = () => {
     for (const condition of WINNING_CONDITIONS) {
@@ -28,26 +58,19 @@ export function useGame() {
         winner.value = cellA;
         winningLine.value = [a, b, c];
 
-        if (cellA === PLAYERS.X_PLAYER) {
-          scores.value.X++;
-        } else {
-          scores.value.O++;
-        }
-
+        saveMatchToHistory(cellA === X_PLAYER ? X_PLAYER : O_PLAYER);
         return;
       }
     }
 
     if (!winner.value && board.value.every((cell) => cell !== null)) {
-      scores.value.draws++;
+      saveMatchToHistory(DRAW);
     }
   };
 
   const makeMove = (index: number) => {
     if (board.value[index] || winner.value) return;
-
     board.value[index] = currentPlayer.value;
-
     checkWinner();
 
     if (!winner.value) {
@@ -63,7 +86,7 @@ export function useGame() {
   };
 
   const resetScores = () => {
-    scores.value = { X: 0, O: 0, draws: 0 };
+    history.value = [];
   };
 
   return {
@@ -75,6 +98,7 @@ export function useGame() {
     makeMove,
     resetGame,
     scores,
+    history,
     resetScores,
   };
 }

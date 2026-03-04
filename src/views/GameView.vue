@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import GameBoard from "../components/GameBoard.vue";
 import { useGame } from "../composables/useGame";
+import { ROUTES } from "../config";
 
 const { resetGame, winner, isDraw } = useGame();
 
@@ -15,7 +16,7 @@ onMounted(() => {
 <template>
   <div class="w-full max-w-112.5 mx-auto flex flex-col items-center gap-6 animate-fade-in">
     <RouterLink
-      to="/"
+      :to="ROUTES.HOME_PAGE"
       class="self-start text-accent-silver hover:text-player-o transition-colors duration-300 text-sm font-bold flex items-center gap-2"
     >
       <span>←</span> BACK TO MENU
