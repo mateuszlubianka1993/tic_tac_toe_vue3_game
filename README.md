@@ -4,7 +4,7 @@ A modern, reactive Tic Tac Toe game built with **Vue 3**, **TypeScript**, and **
 
 ## 🚀 Live Demo
 
-Check out the live version here: **[LINK]**
+Check out the live version here: **[[LINK](https://mateuszlubianka1993.github.io/tic_tac_toe_vue3_game/)]**
 
 ---
 
