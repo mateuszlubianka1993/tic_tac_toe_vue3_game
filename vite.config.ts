@@ -13,4 +13,5 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+  base: "/tic_tac_toe_vue3_game/",
 });
