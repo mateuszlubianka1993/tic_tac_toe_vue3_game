@@ -23,6 +23,16 @@ export const ROUTES = {
     path: "/game",
     name: "game",
   },
+  HISTORY_PAGE: {
+    path: "/history",
+    name: "history",
+  },
+} as const;
+
+export const RESULTS = {
+  X_WINNER: "X",
+  O_WINNER: "O",
+  DRAW: "Draw",
 } as const;
 
 export const STORAGE_KEY = "tictactoe-scores" as const;

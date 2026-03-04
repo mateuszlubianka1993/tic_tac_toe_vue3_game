@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useGame } from "../composables/useGame";
+import { ROUTES } from "../config";
+
 const { scores } = useGame();
 </script>
 
@@ -35,18 +37,18 @@ const { scores } = useGame();
 
     <nav class="flex flex-col w-full max-w-64 gap-6">
       <RouterLink
-        to="/game"
+        :to="ROUTES.GAME_PAGE"
         class="group relative px-8 py-5 bg-player-o text-brand-dark font-black text-center rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-glow-o"
       >
         START NEW GAME
       </RouterLink>
 
-      <button
-        disabled
-        class="px-8 py-5 border-2 border-brand-panel text-brand-panel font-black rounded-2xl cursor-not-allowed opacity-40 uppercase text-sm tracking-widest"
+      <RouterLink
+        :to="ROUTES.HISTORY_PAGE"
+        class="group relative px-8 py-5 bg-player-o text-brand-dark font-black text-center rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-glow-o"
       >
-        History (Soon)
-      </button>
+        HISTORY
+      </RouterLink>
     </nav>
   </div>
 </template>

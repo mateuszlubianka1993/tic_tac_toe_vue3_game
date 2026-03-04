@@ -15,6 +15,11 @@ const router = createRouter({
       name: ROUTES.GAME_PAGE.name,
       component: () => import("../views/GameView.vue"),
     },
+    {
+      path: ROUTES.HISTORY_PAGE.path,
+      name: ROUTES.HISTORY_PAGE.name,
+      component: () => import("../views/HistoryView.vue"),
+    },
   ],
 });
 

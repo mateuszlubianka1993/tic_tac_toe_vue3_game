@@ -1,11 +1,14 @@
-import { PLAYERS } from "../config";
+import { PLAYERS, RESULTS } from "../config";
 
 export type Player = (typeof PLAYERS)[keyof typeof PLAYERS];
 
 export type CellValue = Player | null;
 
-export interface GameScores {
-  X: number;
-  O: number;
-  draws: number;
+export type Result = (typeof RESULTS)[keyof typeof RESULTS];
+
+export interface MatchEntry {
+  id: string;
+  winner: Result;
+  date: string;
+  movesCount: number;
 }
