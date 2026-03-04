@@ -28,6 +28,7 @@ const emit = defineEmits<{
       isWinningSquare && value === PLAYERS.X_PLAYER ? 'bg-player-x text-white scale-105 z-10' : '',
       isWinningSquare && value === PLAYERS.O_PLAYER ? 'bg-player-o text-white scale-105 z-10' : '',
     ]"
+    data-test="cell"
   >
     <div
       v-if="value"
